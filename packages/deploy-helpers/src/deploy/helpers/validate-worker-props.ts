@@ -304,6 +304,11 @@ export async function preUploadApiChecks(
 		}
 	}
 
-	await ensureQueuesExistByConfig(config, accountId);
+	await ensureQueuesExistByConfig(
+		config,
+		accountId,
+		!props.resourcesProvision,
+		name
+	);
 	return { workerTag, tags, workerExists, aborted: false };
 }
