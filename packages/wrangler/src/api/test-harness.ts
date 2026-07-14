@@ -961,7 +961,7 @@ export function createTestHarness(options?: TestHarnessOptions): TestHarness {
 
 					const response = await dispatchFetch(
 						miniflare,
-						`/cdn-cgi/handler/scheduled?${searchParams.toString()}`,
+						`/cdn-cgi/local/scheduled?${searchParams.toString()}`,
 						undefined,
 						workerName,
 						"scheduled"
