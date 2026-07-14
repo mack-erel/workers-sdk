@@ -4,6 +4,7 @@ import {
 	experimental_patchConfig,
 	experimental_readRawConfig,
 	INHERIT_SYMBOL,
+	isNonInteractiveOrCI,
 	PatchConfigError,
 	UserError,
 } from "@cloudflare/workers-utils";
@@ -11,7 +12,6 @@ import {
 	fetchListResult,
 	fetchPagedListResult,
 	fetchResult,
-	isNonInteractiveOrCI,
 	logger,
 	prompt,
 	select,
