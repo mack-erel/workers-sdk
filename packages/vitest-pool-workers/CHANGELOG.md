@@ -1,5 +1,17 @@
 # @cloudflare/vitest-pool-workers
 
+## 0.18.6
+
+### Patch Changes
+
+- [#14678](https://github.com/cloudflare/workers-sdk/pull/14678) [`4e62bba`](https://github.com/cloudflare/workers-sdk/commit/4e62bba52d8c540328bc9b3399bba4dcb7cde799) Thanks [@apeacock1991](https://github.com/apeacock1991)! - Fix test runs hanging after a Durable Object logs and rejects `blockConcurrencyWhile()`
+
+  Console messages emitted from another Durable Object are now buffered until execution returns to the test runner, avoiding I/O that cannot complete after the object's input gate breaks.
+
+- Updated dependencies [[`34e696d`](https://github.com/cloudflare/workers-sdk/commit/34e696dc60dcd7ea04cdab8a6267d255efab9983), [`d39ae01`](https://github.com/cloudflare/workers-sdk/commit/d39ae0131018088f8b4c31ba3f5506e224796cce), [`3de70df`](https://github.com/cloudflare/workers-sdk/commit/3de70dfd32f823677a9d20311ee087fd7e69d51a), [`9f04a7e`](https://github.com/cloudflare/workers-sdk/commit/9f04a7e96bffe42a5a53d7396624da5374bff981), [`9f04a7e`](https://github.com/cloudflare/workers-sdk/commit/9f04a7e96bffe42a5a53d7396624da5374bff981), [`cb30df3`](https://github.com/cloudflare/workers-sdk/commit/cb30df3a9f19e15535349643c1089e90ba16a80d), [`c7dbe1a`](https://github.com/cloudflare/workers-sdk/commit/c7dbe1a3d527d534d4069080c56e364d33d6a455), [`4e1a7a7`](https://github.com/cloudflare/workers-sdk/commit/4e1a7a7fe566774dca376c5d569cab56b14f34e3), [`9f04a7e`](https://github.com/cloudflare/workers-sdk/commit/9f04a7e96bffe42a5a53d7396624da5374bff981)]:
+  - miniflare@4.20260714.0
+  - wrangler@4.112.0
+
 ## 0.18.5
 
 ### Patch Changes

@@ -1,5 +1,38 @@
 # miniflare
 
+## 4.20260714.0
+
+### Minor Changes
+
+- [#14562](https://github.com/cloudflare/workers-sdk/pull/14562) [`9f04a7e`](https://github.com/cloudflare/workers-sdk/commit/9f04a7e96bffe42a5a53d7396624da5374bff981) Thanks [@martijnwalraven](https://github.com/martijnwalraven)! - Add a `handleUncaughtError` shared option that receives uncaught Worker exceptions
+
+  The runtime catches handler exceptions to build the 500 response, so they never reach the inspector — the one place an uncaught exception exists as a structured value in Node is the pretty-error path, where the error report from the Worker is revived into a source-mapped `Error`. Embedders can now pass `handleUncaughtError: (error: Error) => void` to observe that revived error programmatically; logging behavior is unchanged.
+
+  The hook fires only where the pretty-error path does: requests reaching the Worker through the entry socket (a browser or another HTTP client against the dev server). `dispatchFetch()` is unaffected — it always sets `MF-Disable-Pretty-Error`, and the entry worker then propagates the exception by rejecting the returned promise instead, so `dispatchFetch()` callers already receive the error directly and the hook is not invoked.
+
+### Patch Changes
+
+- [#14417](https://github.com/cloudflare/workers-sdk/pull/14417) [`34e696d`](https://github.com/cloudflare/workers-sdk/commit/34e696dc60dcd7ea04cdab8a6267d255efab9983) Thanks [@matthewdavidrodgers](https://github.com/matthewdavidrodgers)! - Improve asset serving performance by removing an unnecessary internal dispatch hop
+
+  Asset requests and RPC calls now avoid an extra internal forwarding layer, reducing latency. The forwarding infrastructure is preserved for future use by cohort-based deployments.
+
+- [#14682](https://github.com/cloudflare/workers-sdk/pull/14682) [`d39ae01`](https://github.com/cloudflare/workers-sdk/commit/d39ae0131018088f8b4c31ba3f5506e224796cce) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies of "miniflare", "wrangler"
+
+  The following dependency versions have been updated:
+
+  | Dependency                | From          | To            |
+  | ------------------------- | ------------- | ------------- |
+  | @cloudflare/workers-types | ^5.20260710.1 | ^5.20260714.1 |
+  | workerd                   | 1.20260710.1  | 1.20260714.1  |
+
+- [#14562](https://github.com/cloudflare/workers-sdk/pull/14562) [`9f04a7e`](https://github.com/cloudflare/workers-sdk/commit/9f04a7e96bffe42a5a53d7396624da5374bff981) Thanks [@martijnwalraven](https://github.com/martijnwalraven)! - Keep reporting uncaught Worker errors when a stack frame's file URL has no local path
+
+  `fileURLToPath` throws on `file://` URLs that cannot be represented as a local path (a non-local host; on Windows, any drive-less path — which is every `file:///...` URL reported by a POSIX-built bundle). Both the source-mapping machinery and `youch`'s error-page frame parsing convert stack-frame specifiers this way, so one such frame previously failed the whole pretty-error request: the error page was replaced by a raw Node stack, the error was not logged, and `handleUncaughtError` did not fire. Source mapping now degrades to the unmapped stack and the pretty page falls back to a plain stack response instead.
+
+- [#14418](https://github.com/cloudflare/workers-sdk/pull/14418) [`cb30df3`](https://github.com/cloudflare/workers-sdk/commit/cb30df3a9f19e15535349643c1089e90ba16a80d) Thanks [@matthewdavidrodgers](https://github.com/matthewdavidrodgers)! - Improve routing performance for Workers with assets
+
+  Reduce request handling latency by streamlining the router Worker's request path. The loopback infrastructure remains available for future use.
+
 ## 4.20260710.0
 
 ### Minor Changes
