@@ -6,6 +6,6 @@ Update dependencies of "create-cloudflare"
 
 The following dependency versions have been updated:
 
-| Dependency  | From    | To      |
-| ----------- | ------- | ------- |
-| create-vike | 0.0.662 | 0.0.664 |
+| Dependency    | From   | To     |
+| ------------- | ------ | ------ |
+| @tanstack/cli | 0.69.5 | 0.69.6 |
